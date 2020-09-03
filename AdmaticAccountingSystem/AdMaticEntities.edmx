@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="admaticModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Faturalar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriID" Type="int" />
+          <Property Name="IslemTuruID" Type="int" />
+          <Property Name="HesapID" Type="int" />
+          <Property Name="FaturaSeriNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="FaturaSiraNo" Type="nvarchar" MaxLength="10" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="250" />
+          <Property Name="ReklamHizmetBilgisi" Type="nvarchar" MaxLength="50" />
+          <Property Name="FaturaTutar" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FaturaVade" Type="int" />
+          <Property Name="ToplamTahsilat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Etiket" Type="nvarchar" MaxLength="50" />
+          <Property Name="OlusturulmaTarihi" Type="datetime" Nullable="false" />
+          <Property Name="FaturaDuzenlenmeTarihi" Type="date" />
+          <Property Name="Meblag" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TahsilatTipi" Type="nvarchar" MaxLength="5" />
+          <Property Name="TahsilatTarihi" Type="date" />
+          <Property Name="TahsilatVadeTarihi" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'admatic.dbo.Hesaplar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Hesaplar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HesapAdi" Type="varchar" MaxLength="50" />
+          <Property Name="INUSE" Type="bit" />
+        </EntityType>
+        <EntityType Name="Islem_Turu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IslemAdi" Type="varchar" MaxLength="50" />
+          <Property Name="INUSE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kullanici_Sayfa_Matrix">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kullanici_ID" Type="int" />
+          <Property Name="Sayfa_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="20" />
+          <Property Name="Soyad" Type="nvarchar" MaxLength="20" />
+          <Property Name="OlusturulmaTarihi" Type="datetime" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="300" />
+          <Property Name="INUSE" Type="bit" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirmaUnvan" Type="nvarchar" MaxLength="100" />
+          <Property Name="KisaAd" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="150" />
+          <Property Name="YetkiliKisi" Type="nvarchar" MaxLength="50" />
+          <Property Name="TelNo" Type="nvarchar" MaxLength="11" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="OlusturulmaTarihi" Type="datetime" Nullable="false" />
+          <Property Name="INUSE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sayfalar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sayfa_Adi" Type="nvarchar" MaxLength="150" />
+          <Property Name="Sayfa_Url" Type="nvarchar" MaxLength="150" />
+          <Property Name="INUSE" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="admaticModelStoreContainer">
+          <EntitySet Name="Faturalar" EntityType="Self.Faturalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Islem_Turu" EntityType="Self.Islem_Turu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanici_Sayfa_Matrix" EntityType="Self.Kullanici_Sayfa_Matrix" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteriler" EntityType="Self.Musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sayfalar" EntityType="Self.Sayfalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hesaplar" EntityType="Self.Hesaplar" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Hesaplar].[ID] AS [ID], 
+    [Hesaplar].[HesapAdi] AS [HesapAdi], 
+    [Hesaplar].[INUSE] AS [INUSE]
+    FROM [dbo].[Hesaplar] AS [Hesaplar]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="admaticModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="admaticEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Faturalar" EntityType="admaticModel.Faturalar" />
+          <EntitySet Name="Islem_Turu" EntityType="admaticModel.Islem_Turu" />
+          <EntitySet Name="Kullanici_Sayfa_Matrix" EntityType="admaticModel.Kullanici_Sayfa_Matrix" />
+          <EntitySet Name="Kullanicilar" EntityType="admaticModel.Kullanicilar" />
+          <EntitySet Name="Musteriler" EntityType="admaticModel.Musteriler" />
+          <EntitySet Name="Sayfalar" EntityType="admaticModel.Sayfalar" />
+          <EntitySet Name="Hesaplar" EntityType="admaticModel.Hesaplar" />
+        </EntityContainer>
+        <EntityType Name="Faturalar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriID" Type="Int32" />
+          <Property Name="IslemTuruID" Type="Int32" />
+          <Property Name="HesapID" Type="Int32" />
+          <Property Name="FaturaSeriNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FaturaSiraNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ReklamHizmetBilgisi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FaturaTutar" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FaturaVade" Type="Int32" />
+          <Property Name="ToplamTahsilat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Etiket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OlusturulmaTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FaturaDuzenlenmeTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Meblag" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TahsilatTipi" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="TahsilatTarihi" Type="DateTime" Precision="0" />
+          <Property Name="TahsilatVadeTarihi" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Islem_Turu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IslemAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="INUSE" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kullanici_Sayfa_Matrix">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kullanici_ID" Type="Int32" />
+          <Property Name="Sayfa_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Soyad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OlusturulmaTarihi" Type="DateTime" Precision="3" />
+          <Property Name="Sifre" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="INUSE" Type="Boolean" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirmaUnvan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KisaAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="YetkiliKisi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OlusturulmaTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="INUSE" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sayfalar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sayfa_Adi" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Sayfa_Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="INUSE" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Hesaplar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HesapAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="INUSE" Type="Boolean" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="admaticModelStoreContainer" CdmEntityContainer="admaticEntities">
+          <EntitySetMapping Name="Faturalar">
+            <EntityTypeMapping TypeName="admaticModel.Faturalar">
+              <MappingFragment StoreEntitySet="Faturalar">
+                <ScalarProperty Name="TahsilatVadeTarihi" ColumnName="TahsilatVadeTarihi" />
+                <ScalarProperty Name="TahsilatTarihi" ColumnName="TahsilatTarihi" />
+                <ScalarProperty Name="TahsilatTipi" ColumnName="TahsilatTipi" />
+                <ScalarProperty Name="Meblag" ColumnName="Meblag" />
+                <ScalarProperty Name="FaturaDuzenlenmeTarihi" ColumnName="FaturaDuzenlenmeTarihi" />
+                <ScalarProperty Name="OlusturulmaTarihi" ColumnName="OlusturulmaTarihi" />
+                <ScalarProperty Name="Etiket" ColumnName="Etiket" />
+                <ScalarProperty Name="ToplamTahsilat" ColumnName="ToplamTahsilat" />
+                <ScalarProperty Name="FaturaVade" ColumnName="FaturaVade" />
+                <ScalarProperty Name="FaturaTutar" ColumnName="FaturaTutar" />
+                <ScalarProperty Name="ReklamHizmetBilgisi" ColumnName="ReklamHizmetBilgisi" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="FaturaSiraNo" ColumnName="FaturaSiraNo" />
+                <ScalarProperty Name="FaturaSeriNo" ColumnName="FaturaSeriNo" />
+                <ScalarProperty Name="HesapID" ColumnName="HesapID" />
+                <ScalarProperty Name="IslemTuruID" ColumnName="IslemTuruID" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Islem_Turu">
+            <EntityTypeMapping TypeName="admaticModel.Islem_Turu">
+              <MappingFragment StoreEntitySet="Islem_Turu">
+                <ScalarProperty Name="INUSE" ColumnName="INUSE" />
+                <ScalarProperty Name="IslemAdi" ColumnName="IslemAdi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanici_Sayfa_Matrix">
+            <EntityTypeMapping TypeName="admaticModel.Kullanici_Sayfa_Matrix">
+              <MappingFragment StoreEntitySet="Kullanici_Sayfa_Matrix">
+                <ScalarProperty Name="Sayfa_ID" ColumnName="Sayfa_ID" />
+                <ScalarProperty Name="Kullanici_ID" ColumnName="Kullanici_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanicilar">
+            <EntityTypeMapping TypeName="admaticModel.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="INUSE" ColumnName="INUSE" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="OlusturulmaTarihi" ColumnName="OlusturulmaTarihi" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteriler">
+            <EntityTypeMapping TypeName="admaticModel.Musteriler">
+              <MappingFragment StoreEntitySet="Musteriler">
+                <ScalarProperty Name="INUSE" ColumnName="INUSE" />
+                <ScalarProperty Name="OlusturulmaTarihi" ColumnName="OlusturulmaTarihi" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="YetkiliKisi" ColumnName="YetkiliKisi" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="KisaAd" ColumnName="KisaAd" />
+                <ScalarProperty Name="FirmaUnvan" ColumnName="FirmaUnvan" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sayfalar">
+            <EntityTypeMapping TypeName="admaticModel.Sayfalar">
+              <MappingFragment StoreEntitySet="Sayfalar">
+                <ScalarProperty Name="INUSE" ColumnName="INUSE" />
+                <ScalarProperty Name="Sayfa_Url" ColumnName="Sayfa_Url" />
+                <ScalarProperty Name="Sayfa_Adi" ColumnName="Sayfa_Adi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hesaplar">
+            <EntityTypeMapping TypeName="admaticModel.Hesaplar">
+              <MappingFragment StoreEntitySet="Hesaplar">
+                <ScalarProperty Name="INUSE" ColumnName="INUSE" />
+                <ScalarProperty Name="HesapAdi" ColumnName="HesapAdi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
